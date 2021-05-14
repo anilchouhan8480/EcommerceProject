@@ -1,0 +1,81 @@
+{% extends 'index.html' %}
+{% load static %}
+
+{% block 'title' %} Login {% endblock %}
+
+
+  {% block 'extralink' %}
+
+  <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+
+  {% endblock %}
+
+          {% block 'navOption' %}
+          <li class="nav-item">
+            <a class="nav-link" href="/signup/">Signup</a>
+          </li>
+          {% endblock %}
+
+
+  {% block 'maindata' %}
+
+<div>
+   {% for message in messages %}
+
+        <div class="alert alert-danger alert-dismissible" style=" font-size: 20px; ">
+            <a class="close " aria-label="close" href="#" data-dismiss="alert">×</a>
+
+            {{ message }}
+
+    {% endfor %}
+    </div> 
+
+
+
+<form action="" method="post">
+			{% csrf_token %}
+  <div class="container">
+    <div class="row" >
+          <div class="col-md-4" >.</div>
+          <div class="col-md-4">
+            <h2 style="color:red">Login Here</h2>
+            <label for="uname"><b>Username</b></label>
+            <input type="text" placeholder="Enter Username" name="uname" required>
+
+            <label for="psw"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name="pwd" required>
+                
+            <button type="submit" value="Login">Login</button>
+            <label>
+              <input type="checkbox" checked="checked" name="remember"> Remember me
+            </label>
+
+          <div class="container" style="background-color:#f1f1f1">
+            <a type="button" href="/signup/" class="cancelbtn">Cancel</a>
+            <span class="psw">Forgot <a href="/forgotpassword/">password?</a></span>
+          </div>
+      </div>
+
+          <div class="col-md-4">.</div>
+    </form>
+  </div>
+</div>
+
+{% endblock %}
+
+
+<!-- ========================================================== -->
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,103 @@
+
+
+{% extends 'welcomebuyer.html' %}
+
+{% load static %}
+
+{% block 'title' %} Profile {% endblock %}
+
+{% block 'extralink' %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %} 
+
+
+
+
+{% block 'maindata' %}
+
+
+
+
+{% for i in uObj %}
+<form class="form" method="POST">
+    {% csrf_token %}
+    <h2>User Profile</h2>
+    <div class="form-group">
+      <label for="email">First Name:</label>
+      <div class="relative">
+        <input class="form-control" id="name" name="subfirst" type="text" value="{{ i.first_name }}"  disabled>
+        <i class="fa fa-user"></i>
+      </div>
+    </div>
+    <div class="form-group">
+        <label for="email">Last Name:</label>
+        <div class="relative">
+          <input class="form-control" id="name sublast" name="last" type="text"  value="{{ i.last_name }}" oninput="se()" disabled>
+          <i class="fa fa-user"></i>
+        </div>
+      </div>
+    <div class="form-group">
+      <label for="email">Email address:</label>
+      <div class="relative">
+        <input class="form-control" type="email" id = "subemail" name="email"  value="{{ i.email }}" oninput="se()" disabled>
+        <i class="fa fa-envelope"></i>
+      </div>
+    </div>
+    {% endfor %}
+
+    {% for i in upObj %}
+    <div class="form-group">
+      <label for="email">Contact Number:</label>
+      <div class="relative">
+        <input class="form-control" id="mob" type="number"  name="mobile" value="{{ i.mobile }}" oninput="se()" disabled>
+        <i class="fa fa-phone"></i>
+      </div>
+    </div>
+<!--     <div class="form-group">
+      <label for="email">Gender:</label>
+      <div class="relative">
+        <select class="form-select" name="gen" oninput="se()" disabled>
+            <option selected>{{ i.gender }}</option>
+            <option value="female">Female</option>
+            <option value="male">Male</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="email">Address:</label>
+      <div class="relative">
+        <input class="form-control" type="textbox"  name="address" id="tags" value="{{ i.address }}" oninput="se()" disabled>
+      </div>
+    </div> -->
+{% endfor %}
+  
+    <div class="tright">
+       <button class="movebtn movebtnre" type="button" onclick="dis()" ><i class="fa fa-fw fa-refresh"></i> Edit </button>
+       <button class="movebtn movebtnsu" id="sub" type="Submit" onclick="valida()" disabled>Submit <i class="fa fa-fw fa-paper-plane"></i></button>
+    </div>
+</form>
+
+
+<script>
+function valida(){
+    var mobil = document.getElementById("mob");
+    var patter = /^\d{10}$/;
+    if(mobil.value.match(patter)){
+        return true
+    }
+    else{
+        alert("enter 10 digit mobile number");
+    }
+}
+
+function se(){
+    document.getElementById("sub").disabled = false;
+}
+
+function dis(){
+    $("input").removeAttr('disabled');
+    $("select").removeAttr('disabled');
+}
+
+</script>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'welcomebuyer.html' %}
+
+{% load static %}
+
+{% block 'title' %} Cartfilter{% endblock %}
+
+<!-- {% block 'extralink' %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}  -->
+
+
+
+
+{% block 'maindata' %}
+
+<!-- {% if messages %}
+    {% for m in messages %}
+    <script type="text/javascript"> alert("{{ m }}")</script>
+    {% endfor %}
+{% endif %} -->
+
+
+    <div class="row" style="margin: 40px 20px;">
+
+        {% for i in pObjs %}
+            <div class="col-2">
+                  <div class="card" style="height: 400px;">
+                    <a href="#"><img class="card-img-top" style="height: 230px;" src="{{ i.pro_img.url }} "></a>
+                  </div>
+                    <div class="card-body">
+                        <h4 class="card-title">
+                        <a href="#">{{ i.name }}</a>
+                        </h4>
+                        <h5>{{ i.price }}</h5>
+                        <p class="card-text">{{ i.desc }}</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{% url 'buyer:add_cart' id=i.id %}">Add to Cart</a>
+                    </div>
+            </div>
+    </div>
+  {% endfor %}
+{% endblock %}

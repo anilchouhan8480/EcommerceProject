@@ -1,0 +1,89 @@
+{% extends 'WelcomeSeller.html' %}
+
+  {% block 'extralink' %}
+
+  <style>
+footer {
+/*   position: fixed;*/
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   background-color: red;
+   color: white;
+   text-align: center;
+}
+</style>
+  {% endblock %}
+
+
+{% block 'maindata' %}
+<div class="container">
+  <div class="row">
+    <div class="col-lg-3">
+    </div>
+    <div class="col-lg-6">
+        <h3>Add Product</h3>
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+              <div class="form-group">
+                <input type="text" name="pname" class="form-control" placeholder="Product Name">
+              </div>
+              <div class="form-group">
+                <input type="text" name="desc" class="form-control" placeholder="Description">
+              </div>
+              <div class="form-group">
+                <input type="text" name="price" class="form-control" placeholder="Price">
+              </div>
+              <div class="form-group">
+                <input type="file" name="proimg" class="form-control" placeholder="">
+              </div>
+          <div class="form-group">
+            <select class="form-control" name="cid">
+              <option>----SELECT----</option>
+              {% for i in catObjs %}
+                <option value="{{ i.id }}">{{ i.catName }}</option>
+              {% endfor %}
+            </select>
+            <div>
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+                  Add Category
+              </button>
+            <div/>
+          </div>
+              <br>
+              <div class="form-group">
+                <input type="number" name="qty" class="form-control">
+              </div>
+              <div class="form-group">
+                <input type="submit" value="Add" class="btn btn-primary">
+              </div>
+              </form>
+            </div>
+        </div>
+      </div>
+
+        <div class="modal" id="myModal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                  <h4 class="modal-title">Add Category</h4>
+                  <button type="button" class="close" data-dismiss="modal"></button>
+              </div>
+                <form method="post" action="/buyer/addcat/">
+                {% csrf_token %}
+              <div class="modal-body">
+                <input type="text" placeholder="Category Name" name="cat" >
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <input type="submit" class="btn btn-danger">
+              </div> 
+        </form>
+        </div>
+        </div>   
+    </div>
+    </div>
+    <div class="col-lg-3"> 
+  </div>
+</div>
+{% endblock %}
