@@ -1,0 +1,22 @@
+{% extends 'cartfilter.html' %}
+
+{% load static %}
+
+{% block 'title' %} Empty Card{% endblock %}
+
+
+{% block 'maindata' %}
+
+
+<div class="container my-5">
+	<div class="row">
+		<h3 class="text-center">You have No product in Your Card </h3>
+		<div class="text-center">
+			<img src="{% static 'images/emptycart.png' %}" class="img-fluid img-thumbnail w-25">
+			
+		</div>	
+	</div>
+	
+</div>
+
+{% endblock %}

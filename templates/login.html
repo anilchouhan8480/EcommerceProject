@@ -22,13 +22,24 @@
 <div>
    {% for message in messages %}
 
-        <div class="alert alert-danger alert-dismissible" style=" font-size: 20px; ">
+        <div id="alert" class="alert alert-danger alert-dismissible" style=" font-size: 20px; ">
             <a class="close " aria-label="close" href="#" data-dismiss="alert">×</a>
 
             {{ message }}
 
     {% endfor %}
     </div> 
+
+<div>
+   {% for message in messages %}
+
+        <div id="alert" class="alert alert-success alert-dismissible" style="margin-top: -62px; font-size: 20px; ">
+            <a class="close " aria-label="close" href="#" data-dismiss="alert">×</a>
+
+            {{ message }}
+
+    {% endfor %}
+    </div>     
 
 
 
@@ -52,7 +63,7 @@
 
           <div class="container" style="background-color:#f1f1f1">
             <a type="button" href="/signup/" class="cancelbtn">Cancel</a>
-            <span class="psw">Forgot <a href="/forgotpassword/">password?</a></span>
+            <span class="psw">Forgot <a href="{% url 'reset_password' %}">password?</a></span>
           </div>
       </div>
 

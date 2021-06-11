@@ -1,4 +1,5 @@
 {% extends 'welcomebuyer.html' %}
+{% load static %}
 
   {% block 'extralink' %}
 
@@ -17,21 +18,60 @@ footer {
 
 
 {% block 'maindata' %}
-<!-- <form method="POST">
-    <div class="form-check">
-        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-        <label class="form-check-label" for="flexRadioDefault1">
-        Cash on Delivery
-        </label>
-    </div>
-    <div class="form-check">
-        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-        <label class="form-check-label" for="flexRadioDefault2">
-        Pre-Paid
-        </label>
-    </div>
-</form> -->
 
-<h1>Congretulation! Your order Has been placed</h1>
 
+<div class="container">
+ <div class="row mt-5">
+  <div class="col-sm-6">
+    <h4>Order Summary</h4>
+    <hr>
+    {% for i in cartObj %}
+<!--       <div class="card mb-2">
+        <div class="card-body"> -->
+        <div class="row">
+            <div class="col-sm-6 text-center align-self-center">
+                 <img style="height: 120px" src="{{ i.product.pro_img.url }}" alt="" class="img-fluid img-thumbnail">
+            </div>
+            <div class="col-sm-5 offset-sm-1">
+                <h5>Product: {{i.product.name}}</h5>
+                <p>Quantity: 1</p>
+                <p class="fw-bold">Price:{{i.total_cost}} </p>
+            </div>
+        </div>
+        <hr>
+<!--         </div>
+      </div> -->
+      {% endfor %}
+
+    <p class="fw-bold text-center">Total Cost + Rs. 70 = {{totalamount}}</p>
+
+    <small>Term and Condition: Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, ullam saepe! Iure optio repellat dolor velit, minus rem. Facilis cumque neque numquam laboriosam, accusantium adipisci nisi nihil in et quis?</small>
+  </div>
+  <div class="col-sm-4 offset-sm-1">
+    <h4>Select Shipping Address</h4>
+    <hr>
+    <form action="/buyer/paymentdone">
+        {% for i in add %}
+      <div class="card">
+        <div class="card-body">
+        <h5>{{ request.user | upper }}</h5>
+        <p>{{i.add_line1}}, <span>{{i.add_line2}}</span></p>
+        <p>{{i.area}}</p>
+        <p>{{i.pincode}}</p>
+        <h4>{{i.city}},  <span>{{i.state}}</span></h4>
+        </div>
+      </div>
+        <div class="form-check mt-2 mb-5">
+          <input class="form-check-input" type="radio" name="custid" id=" custadd{{forloop.counter}}" value="{{i.id}}">
+          <label class="form-check-label fw-bold" for="custadd{{forloop.counter}}">
+            Address: {{forloop.counter}} </label>
+        </div>
+                {% endfor %}
+        <div class="text-end">
+          <button type="submit" class="btn btn-warning btn-block mb-5 fw-bold">Continue</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 {% endblock %}

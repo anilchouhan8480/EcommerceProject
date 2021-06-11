@@ -1,5 +1,3 @@
-
-
 {% extends 'welcomebuyer.html' %}
 
 {% load static %}
@@ -10,18 +8,42 @@
     <link rel="stylesheet" href="{% static 'css/profile.css' %}">
 {% endblock %} 
 
+        {% block 'navOption' %}
 
+            <li class="nav-item">
+                <a class="nav-link" href="/passwordchange/">Change Password</a>
+            </li>
+                    <li class="nav-item">
+          <a class="nav-link" href="/buyer/cartdetails/">Cart<sup>{{ count }}</sup></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/buyer/orders/">Orders</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/logout/">Logout</a>
+        </li>
+        {% endblock %}
 
 
 {% block 'maindata' %}
 
+<div class="container">
+    <h2 class="text-center mt-4">User Profile of {{ request.user | upper }}</h2>
+<div class="row">
+    <div class="col-4">
 
+        <div class="p-5">
 
-
+            <a class="" href="#"><button class="btn {{active}} btn-block">Profile</button></a>
+            <a class="" href="/buyer/address/"><button class="btn btn-light btn-block">
+            Address</button></a>
+        </div>
+    </div>
+    <div class="col-4">
 {% for i in uObj %}
 <form class="form" method="POST">
     {% csrf_token %}
-    <h2>User Profile</h2>
+    <!-- <h2>User Profile</h2> -->
     <div class="form-group">
       <label for="email">First Name:</label>
       <div class="relative">
@@ -76,28 +98,9 @@
        <button class="movebtn movebtnsu" id="sub" type="Submit" onclick="valida()" disabled>Submit <i class="fa fa-fw fa-paper-plane"></i></button>
     </div>
 </form>
+</div>
 
-
-<script>
-function valida(){
-    var mobil = document.getElementById("mob");
-    var patter = /^\d{10}$/;
-    if(mobil.value.match(patter)){
-        return true
-    }
-    else{
-        alert("enter 10 digit mobile number");
-    }
-}
-
-function se(){
-    document.getElementById("sub").disabled = false;
-}
-
-function dis(){
-    $("input").removeAttr('disabled');
-    $("select").removeAttr('disabled');
-}
-
-</script>
+    <div class="col-4">.</div>
+</div>
+</div>
 {% endblock %}

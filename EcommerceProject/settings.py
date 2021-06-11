@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'EcommerceProject.wsgi.application'
 DATABASES = {
     'default':{  
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'shopdb',
+        'NAME': 'ecommdb',
         'USER': 'root',
         'PASSWORD': '',
         'HOST': 'localhost',
@@ -134,3 +134,10 @@ STATICFILES_DIRS = [STATIC_DIR]
 # EMAIL_BACKEND = 'django.core.mail.backend.smtp.EmailBackend'
 # EMAIL_HOST = 'smtp.gmail.com'
 # EMAIL_USE_TLS = 
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'anilchouhan8480@gmail.com'
+EMAIL_HOST_PASSWORD = '0395@Anil'

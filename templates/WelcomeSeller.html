@@ -2,20 +2,46 @@
 {% load static %}
 
 
-{% block 'title' %} Seller {% endblock %}  
+        {% block 'title' %} Seller {% endblock %}  
 
-          {% block 'username' %}
-                <a class="navbar-brand" href="/seller/home/">Welcome {{request.user | upper}} ({{ data.role | upper }})</a>
+        {% block 'username' %}
+          {% if request.user.is_authenticated %}
+            <a class="navbar-brand" href="/seller/home/">Welcome {{request.user | upper}} ({{ data.role | upper }})</a>
+          {% else %}
+            <p>.</p> 
+          {% endif %}
           {% endblock %}
 
-          {% block 'home' %}<a class="nav-link" href="/seller/home/">Home</a> {% endblock %}
+          {% block 'home' %}<a class="nav-link" href="/seller/home/">Home</a> 
+        {% endblock %}
 
-           {% block 'navOption' %}
-          <li class="nav-item">
-            <a class="nav-link" href="/seller/add_product/">Add Product</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/logout/">Logout</a>
-          </li>
+        {% block 'navOption' %}
+          {% if request.user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="/seller/add_product/">Add Product</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/logout/">Logout</a>
+            </li>
+          {% else %}
 
+            <li class="nav-item">
+              <a class="nav-link" href="/login/">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/signup/">Signup</a>
+            </li>
+          {% endif %}
+
+        {% endblock %}
+        {% block 'message' %}
+
+          {% for message in messages %}
+
+
+            <div id="alert"  class="alert alert-success" style="font-size: 20px">
+                      {{ message }}
+            </div>
+
+          {% endfor %}
         {% endblock %}

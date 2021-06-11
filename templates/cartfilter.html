@@ -24,8 +24,8 @@
 
         {% for i in pObjs %}
             <div class="col-2">
-                  <div class="card" style="height: 400px;">
-                    <a href="#"><img class="card-img-top" style="height: 230px;" src="{{ i.pro_img.url }} "></a>
+                  <div class="card overflow-auto" style="height: 200px;">
+                    <a href="{% url 'buyer:product-detail' id=i.id %}"><img class="card-img-top" style="height: 100%;" src="{{ i.pro_img.url }} ">
                   </div>
                     <div class="card-body">
                         <h4 class="card-title">
@@ -33,11 +33,12 @@
                         </h4>
                         <h5>{{ i.price }}</h5>
                         <p class="card-text">{{ i.desc }}</p>
-                    </div>
+                    </div></a>
                     <div class="card-footer">
-                        <a href="{% url 'buyer:add_cart' id=i.id %}">Add to Cart</a>
+                        <a class="btn btn-info" href="{% url 'buyer:add_cart' id=i.id %}">Add to Cart</a>
                     </div>
+                    <a href="{% url 'buyer:product-detail' id=i.id %}"><button class="btn btn-primary btn-block">Details of Product</button></a>
             </div>
+              {% endfor %}
     </div>
-  {% endfor %}
 {% endblock %}

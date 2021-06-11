@@ -13,6 +13,8 @@ def add_product(request):
 		pname = request.POST['pname']
 		desc = request.POST['desc']
 		price = request.POST['price']
+		disc_price = request.POST['disc_price']
+		brand = request.POST['brand']
 		pImage = request.FILES['proimg']
 		qty = request.POST['qty']
 		catid = request.POST['cid']
@@ -20,7 +22,7 @@ def add_product(request):
 		uObj = UserProfile.objects.get(user__username=request.user)
 		catObj = Category.objects.get(id=catid)
 
-		p = Product(name=pname, desc=desc, price=price, qty=qty, pro_img=pImage, category=catObj, added_by=uObj)
+		p = Product(name=pname, description=desc,discounted_price=disc_price,brand=brand, price=price, qty=qty, pro_img=pImage, category=catObj, added_by=uObj)
 		p.save()
 		return redirect('/seller/add_product/')
 	return render(request, "AddProduct.html", {'catObjs' : catObjs})

@@ -3,11 +3,22 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from .models import UserProfile
+from seller.models import *
+from buyer.models import *
+from .forms import MyPasswordChangeForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.core.mail import send_mail
 
 import random
+
+def home(request):
+
+	cObjs = Category.objects.all()
+	pObjs = Product.objects.all()
+
+	return render(request, "index.html",{'cObjs':cObjs, 'pObjs':pObjs,})
+
 
 
 def signup(request):
@@ -41,11 +52,12 @@ def login_call(request):
 			login(request, user)
 			uObj = UserProfile.objects.get(user__username=request.user)
 			
-			if uObj.role == "seller":
+			if uObj.role == "Seller":
 				messages.success(request,'Login Suucess! Welcome. ')
 				return redirect('/seller/home/')
 
-			elif uObj.role == "buyer":
+			elif uObj.role == "Buyer":
+				messages.success(request,'Login Suucess! Welcome. ')
 				return redirect('/buyer/home/')
 			
 			return render(request, 'index.html')
@@ -57,35 +69,34 @@ def login_call(request):
 	return render(request, "login.html")
 
 
-def forgot(request):
+# def forgot(request):
 
-    code = random.randint(1000, 9999)
-    send_mail("Reset Link", str(code), "anilchouhan8480@gmail.com",["chouhananil152@gmail.com",])
+#     code = random.randint(1000, 9999)
+#     send_mail("Reset Link", str(code), "anilchouhan8480@gmail.com",["chauhananil152@gmail.com",])
 
-    if request.method == "POST":
-        v = request.POST['code']
+#     if request.method == "POST":
+#         v = request.POST['code']
 
-        if code == v:
-            paswd = request.POST['password']
-            uObj = UserProfile.objects.get(user__username=request.user)
-            u = User.objects.get(id = uObj.user_id)
-            u.update(password = paswd)
-            u.save()
-        else:
-            return redirect('/forgotpassword/')
+#         if code == v:
+#             paswd = request.POST['password']
+#             uObj = UserProfile.objects.get(user__username=request.user)
+#             u = User.objects.get(id = uObj.user_id)
+#             u.update(password = paswd)
+#             u.save()
+#         else:
+#             return redirect('/forgotpassword/')
 
 
-    return render(request, "reset_password.html")
+    # return render(request, "reset_password.html")
 
 def reset_password(request):
     if request.method == "POST":
         j = request.POST['password']
 
         u = User(password=make_password(j))
-        u.save()
+        u.update()
         return redirect('/login/')
     return render(request, "reset_password.html")
-
 	
 
 def logout_call(request):
